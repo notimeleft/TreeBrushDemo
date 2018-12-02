@@ -1,0 +1,6 @@
+framework module Pods_TreeBrushDemo {
+  umbrella header "Pods-TreeBrushDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}
