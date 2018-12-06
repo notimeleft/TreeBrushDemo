@@ -366,7 +366,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A5P538JUR3;
-				INFOPLIST_FILE = TreeFractal2Demo/Info.plist;
+				INFOPLIST_FILE = TreeBrushDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -386,7 +386,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A5P538JUR3;
-				INFOPLIST_FILE = TreeFractal2Demo/Info.plist;
+				INFOPLIST_FILE = TreeBrushDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

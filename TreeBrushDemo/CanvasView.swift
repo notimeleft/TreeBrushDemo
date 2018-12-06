@@ -84,13 +84,13 @@ class CanvasView: UIImageView{
     
     func setupDisplayLink(){
         displayLink = CADisplayLink(target: self, selector: #selector(drawVariableTreeNodes))
-        displayLink?.preferredFramesPerSecond = 10
+        displayLink?.preferredFramesPerSecond = 30
         displayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
     }
     
     
     func setupFirstLevel(){
-        let root = TreeNode(origin: CGPoint(x: self.frame.size.width/2, y: self.frame.size.height / 5), angle: Double(Int.random(in: 75...105)), length: Double(self.treeDepth))
+        let root = TreeNode(origin: CGPoint(x: self.bounds.size.width/2, y: self.bounds.size.height / 5), angle: Double(Int.random(in: 75...105)), length: Double(self.treeDepth))
         currentLevel = [root]
         currentDepth = treeDepth
         totalNodeLimit = (2 << treeDepth) - 1
@@ -108,7 +108,6 @@ class CanvasView: UIImageView{
             for _ in 0...numberOfNodesToDraw {
                 drawSingleTreeNode()
             }
-            //autoreleasepool{
             if let levelImage = context.makeImage(){
                 self.image = UIImage(cgImage: levelImage)
             } else {
@@ -152,11 +151,11 @@ class CanvasView: UIImageView{
     
     
     func drawLine(fromPoint: CGPoint, toPoint: CGPoint){
+//        print(fromPoint,toPoint)
         context.move(to: fromPoint)
         context.addLine(to: toPoint)
         context.closePath()
         context.strokePath()
-        
     }
 }
 

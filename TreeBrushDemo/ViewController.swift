@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SnapKit
 
 class ViewController: UIViewController {
 
@@ -21,19 +21,19 @@ class ViewController: UIViewController {
     }
     
     func setupScrollView(){
-        scrollView = CustomScrollView(frame: CGRect(x:view.frame.width / 2.0, y: view.frame.height, width:view.frame.width,height: view.frame.height))
+        scrollView = CustomScrollView(frame: CGRect(x:0, y: 0, width: view.frame.width, height: view.frame.height))
         
-        scrollView?.center = view.center
-        scrollView?.delegate = self
-        scrollView?.backgroundColor = UIColor.black
-        scrollView?.minimumZoomScale = 0.5
-        scrollView?.maximumZoomScale = 3.0
-        scrollView?.zoomScale = 1.0
+        
+        scrollView.delegate = self
+        scrollView.backgroundColor = UIColor.black
+        scrollView.minimumZoomScale = 0.5
+        scrollView.maximumZoomScale = 3.0
+        scrollView.zoomScale = 1.0
         //also another approach: pin image view to scrollview, make sure it has an intrinsic size
         self.scrollView!.contentSize = CGSize(width:self.scrollView!.frame.size.width * 2,height: self.scrollView!.frame.size.height)
-        scrollView?.showsHorizontalScrollIndicator = true
-        scrollView?.indicatorStyle = .white
-        scrollView?.backgroundColor = UIColor.gray
+        scrollView.showsHorizontalScrollIndicator = true
+        scrollView.indicatorStyle = .white
+        scrollView.backgroundColor = UIColor.gray
         
         setupCanvasView()
         setupResetButton()
@@ -43,10 +43,22 @@ class ViewController: UIViewController {
         
         view.addSubview(scrollView)
         view.addSubview(resetButton)
+        //we must add constraints after we have added subviews to parent view, otherwise you're adding constraints in subviews that are in different view hierarchy from the parent view you reference.
+        resetButton.snp.makeConstraints{ make -> Void in
+            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
+        }
+        
+        scrollView.snp.makeConstraints { (make) -> Void in
+            make.edges.equalTo(view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        }
+        scrollView.contentOffset = CGPoint(x: view.frame.width / 2.0, y: 0)
+        
     }
     
     func setupCanvasView(){
         canvasView = CanvasView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 2, height: self.view.frame.height))
+        
     }
     
     
@@ -57,6 +69,13 @@ class ViewController: UIViewController {
         resetButton.setTitle("Reset", for: .normal)
         resetButton.setTitleColor(UIColor.red, for: .normal)
         resetButton.addTarget(self,action: #selector(resetTapped), for: UIControl.Event.touchUpInside)
+        
+//        let safeAreaGuide = view.safeAreaLayoutGuide
+//
+//        resetButton.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor).isActive = true
+//        resetButton.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor).isActive = true
+
+        
     }
     
     @objc func resetTapped(){
@@ -158,6 +177,13 @@ extension ViewController: UIScrollViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         canvasView.userIsTouchingScreen = false 
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        let offsetX = max((scrollView.bounds.width - scrollView.contentSize.width) * 0.5, 0)
+        let offsetY = max((scrollView.bounds.height - scrollView.contentSize.height) * 0.5, 0)
+        
+        scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
     }
     //do this for other delegate functions
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
