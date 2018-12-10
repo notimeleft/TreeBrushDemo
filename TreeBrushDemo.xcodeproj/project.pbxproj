@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		503873D436F42B4529E47D3F /* Pods_TreeBrushDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5518DB26E87F7522373523BD /* Pods_TreeBrushDemo.framework */; };
-		8657E74621B41EE000792865 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8657E74521B41EE000792865 /* Default-568h@2x.png */; };
 		869F2DBD219E278200207DB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F2DBC219E278200207DB4 /* AppDelegate.swift */; };
 		869F2DBF219E278200207DB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F2DBE219E278200207DB4 /* ViewController.swift */; };
 		869F2DC2219E278200207DB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869F2DC0219E278200207DB4 /* Main.storyboard */; };
@@ -22,7 +21,6 @@
 /* Begin PBXFileReference section */
 		5518DB26E87F7522373523BD /* Pods_TreeBrushDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreeBrushDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1C5AE986396246D1EC341D /* Pods-TreeBrushDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreeBrushDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-TreeBrushDemo/Pods-TreeBrushDemo.release.xcconfig"; sourceTree = "<group>"; };
-		8657E74521B41EE000792865 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		869F2DB9219E278200207DB4 /* TreeBrushDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeBrushDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		869F2DBC219E278200207DB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		869F2DBE219E278200207DB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,7 +66,6 @@
 		869F2DB0219E278200207DB4 = {
 			isa = PBXGroup;
 			children = (
-				8657E74521B41EE000792865 /* Default-568h@2x.png */,
 				869F2DBB219E278200207DB4 /* TreeBrushDemo */,
 				869F2DBA219E278200207DB4 /* Products */,
 				066C97012A2EEA7F28D9F532 /* Pods */,
@@ -163,7 +160,6 @@
 				869F2DC7219E278500207DB4 /* LaunchScreen.storyboard in Resources */,
 				869F2DC4219E278500207DB4 /* Assets.xcassets in Resources */,
 				869F2DC2219E278200207DB4 /* Main.storyboard in Resources */,
-				8657E74621B41EE000792865 /* Default-568h@2x.png in Resources */,
 				869F2DD121A0FEE000207DB4 /* test.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

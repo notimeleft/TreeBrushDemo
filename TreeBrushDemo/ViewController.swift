@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     var scrollView: CustomScrollView!
     var canvasView: CanvasView!
     var resetButton: UIButton!
+    var drawLevelButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,16 +38,24 @@ class ViewController: UIViewController {
         
         setupCanvasView()
         setupResetButton()
+        setupDrawLevelButton()
         
         scrollView.touchDelegate = canvasView
         scrollView.addSubview(canvasView)
         
         view.addSubview(scrollView)
         view.addSubview(resetButton)
+        view.addSubview(drawLevelButton)
+        
         //we must add constraints after we have added subviews to parent view, otherwise you're adding constraints in subviews that are in different view hierarchy from the parent view you reference.
         resetButton.snp.makeConstraints{ make -> Void in
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
+        }
+        
+        drawLevelButton.snp.makeConstraints{ make -> Void in
+            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin)
         }
         
         scrollView.snp.makeConstraints { (make) -> Void in
@@ -63,114 +72,36 @@ class ViewController: UIViewController {
     
     
     func setupResetButton(){
-        let origin = CGPoint(x: self.view.frame.width / 2.0, y: 0)
+        let origin = CGPoint(x: self.view.frame.width / 2.0, y: 10)
         let size = CGSize(width: 75, height: 50)
         resetButton = UIButton(frame: CGRect(origin: origin, size: size))
         resetButton.setTitle("Reset", for: .normal)
         resetButton.setTitleColor(UIColor.red, for: .normal)
         resetButton.addTarget(self,action: #selector(resetTapped), for: UIControl.Event.touchUpInside)
-        
-//        let safeAreaGuide = view.safeAreaLayoutGuide
-//
-//        resetButton.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor).isActive = true
-//        resetButton.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor).isActive = true
-
-        
     }
     
     @objc func resetTapped(){
         canvasView.reset()
     }
     
-//level by level growth. Also slow by the end.
+    func setupDrawLevelButton(){
+        let origin = CGPoint(x: self.view.frame.width / 2.0, y: self.view.frame.height - 50)
+        let size = CGSize(width: 75, height: 50)
+        drawLevelButton = UIButton(frame: CGRect(origin: origin, size: size))
+        drawLevelButton.setTitle("Draw Level", for: .normal)
+        drawLevelButton.setTitleColor(UIColor.red, for: .normal)
+        drawLevelButton.addTarget(self, action: #selector(drawLevelTapped), for: UIControl.Event.touchUpInside)
+    }
     
-    
-//    func drawLevel(){
-//        print(currentDepth)
-//        if currentDepth < 0 {
-//            context?.setFillColor(UIColor.black.cgColor)
-//            context?.fill(CGRect(x: 0, y: 0, width: self.canvasView.bounds.width * UIScreen.main.scale , height: self.canvasView.bounds.height * UIScreen.main.scale))
-//            self.canvasView.image = nil
-//            setupFirstLevel()
-//            return
-//
-//        }
-//
-//        var nextLevel = [TreeNode]()
-//        if let currentTreeLevel = currentLevel{
-//            for node in currentTreeLevel{
-//                context.setLineWidth(CGFloat(Double(currentDepth) / 10.0))
-//                context.setStrokeColor(UIColor(hue: CGFloat(Double(currentDepth) / Double(treeDepth)), saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor)
-//                drawLine(fromPoint: node.origin, toPoint: node.endPoint)
-//                let leftChild = TreeNode(origin: node.endPoint, angle: node.angle - self.leftAngle, length: Double(currentDepth))
-//                let rightChild = TreeNode(origin: node.endPoint, angle: node.angle + self.rightAngle, length: Double(currentDepth))
-//                nextLevel.append(leftChild)
-//                nextLevel.append(rightChild)
-//            }
-//            currentLevel = nextLevel
-//            currentDepth -= 1
-//        }
-//
-//        if let levelImage = context.makeImage(){
-//            self.canvasView.image = UIImage(cgImage: levelImage)
-//        }
-//    }
-    
-    
-    
-    
-    
-    
-    
-    
-//complete BFS growth. Very slow at the end.
-    
-//    func drawTreeGrowth(){
-//
-//        let root = TreeNode(origin: CGPoint(x:self.canvasView.frame.size.width/2,y:0), angle: 90, length: Double(self.treeDepth))
-//        var currentLevel = [root]
-//        var currentDepth = treeDepth
-//
-//        while(currentDepth > 0){
-//            //auto release pool will request 'release' of objects in its scope, which decrements its retain count by 1 to ensure this finalImage doesn't hog memory when it should be released.
-//            //autoreleasepool {
-//                //DispatchQueue.main.async {
-////            if let finalImage = self.context.makeImage() {
-////                self.canvasView.image = UIImage(cgImage: finalImage)
-////            }
-//
-//            var nextLevel = [TreeNode]()
-//
-//            context.setLineWidth(CGFloat(Double(currentDepth) / 10.0))
-//            context.setStrokeColor(UIColor(hue: CGFloat(Double(currentDepth) / Double(treeDepth)), saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor)
-//            for node in currentLevel{
-//                drawLine(fromPoint: node.origin, toPoint: node.endPoint)
-//                let leftChild = TreeNode(origin: node.endPoint, angle: node.angle - self.leftAngle, length: Double(currentDepth))
-//                let rightChild = TreeNode(origin: node.endPoint, angle: node.angle + self.rightAngle, length: Double(currentDepth))
-//                nextLevel.append(leftChild)
-//                nextLevel.append(rightChild)
-//            }
-//
-//
-//            currentLevel = nextLevel
-//            currentDepth -= 1
-//        }
-//
-//        if let finalImage = self.context.makeImage() {
-//            self.canvasView.image = UIImage(cgImage: finalImage)
-//        } else {
-//            print("failed!")
-//        }
-//    }
-    
-
-    
+    @objc func drawLevelTapped(){
+        canvasView.drawLevel()
+    }
     
 }
 
 
 extension ViewController: UIScrollViewDelegate {
-    //there's another way to define image view's relationship to scrollview! 
+
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return canvasView
     }
@@ -185,8 +116,5 @@ extension ViewController: UIScrollViewDelegate {
         
         scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
     }
-    //do this for other delegate functions
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print(#function)
-//    }
+
 }
