@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		503873D436F42B4529E47D3F /* Pods_TreeBrushDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5518DB26E87F7522373523BD /* Pods_TreeBrushDemo.framework */; };
+		866A79F521C0D4C500E28150 /* SpriteKitScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 866A79F421C0D4C500E28150 /* SpriteKitScene.sks */; };
+		866A79F721C0D4D300E28150 /* SpriteKitScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866A79F621C0D4D300E28150 /* SpriteKitScene.swift */; };
+		866A79F921C0F19C00E28150 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = 866A79F821C0F19C00E28150 /* Rain.sks */; };
 		869F2DBD219E278200207DB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F2DBC219E278200207DB4 /* AppDelegate.swift */; };
 		869F2DBF219E278200207DB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869F2DBE219E278200207DB4 /* ViewController.swift */; };
 		869F2DC2219E278200207DB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869F2DC0219E278200207DB4 /* Main.storyboard */; };
@@ -21,6 +24,9 @@
 /* Begin PBXFileReference section */
 		5518DB26E87F7522373523BD /* Pods_TreeBrushDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreeBrushDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1C5AE986396246D1EC341D /* Pods-TreeBrushDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreeBrushDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-TreeBrushDemo/Pods-TreeBrushDemo.release.xcconfig"; sourceTree = "<group>"; };
+		866A79F421C0D4C500E28150 /* SpriteKitScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SpriteKitScene.sks; sourceTree = "<group>"; };
+		866A79F621C0D4D300E28150 /* SpriteKitScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitScene.swift; sourceTree = "<group>"; };
+		866A79F821C0F19C00E28150 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
 		869F2DB9219E278200207DB4 /* TreeBrushDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeBrushDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		869F2DBC219E278200207DB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		869F2DBE219E278200207DB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +92,9 @@
 			children = (
 				869F2DBC219E278200207DB4 /* AppDelegate.swift */,
 				869F2DBE219E278200207DB4 /* ViewController.swift */,
+				866A79F421C0D4C500E28150 /* SpriteKitScene.sks */,
+				866A79F621C0D4D300E28150 /* SpriteKitScene.swift */,
+				866A79F821C0F19C00E28150 /* Rain.sks */,
 				869F2DCE21A0FD5700207DB4 /* CanvasView.swift */,
 				869F2DD221A1071B00207DB4 /* CustomScrollView.swift */,
 				869F2DC0219E278200207DB4 /* Main.storyboard */,
@@ -160,7 +169,9 @@
 				869F2DC7219E278500207DB4 /* LaunchScreen.storyboard in Resources */,
 				869F2DC4219E278500207DB4 /* Assets.xcassets in Resources */,
 				869F2DC2219E278200207DB4 /* Main.storyboard in Resources */,
+				866A79F921C0F19C00E28150 /* Rain.sks in Resources */,
 				869F2DD121A0FEE000207DB4 /* test.jpg in Resources */,
+				866A79F521C0D4C500E28150 /* SpriteKitScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +223,7 @@
 			files = (
 				869F2DBF219E278200207DB4 /* ViewController.swift in Sources */,
 				869F2DD321A1071B00207DB4 /* CustomScrollView.swift in Sources */,
+				866A79F721C0D4D300E28150 /* SpriteKitScene.swift in Sources */,
 				869F2DBD219E278200207DB4 /* AppDelegate.swift in Sources */,
 				869F2DCF21A0FD5700207DB4 /* CanvasView.swift in Sources */,
 			);

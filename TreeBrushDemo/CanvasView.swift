@@ -31,7 +31,7 @@ class CanvasView: UIImageView{
     
     var leftAngle:Double = 15
     var rightAngle:Double = 15
-    var treeDepth:Int = 15
+    var treeDepth:Int = 13
     var totalNodeLimit = 0
     
     var nodeCounter = 1
@@ -61,8 +61,7 @@ class CanvasView: UIImageView{
     }
     
     func fillScreenToBlack(){
-        context?.setFillColor(UIColor.black.cgColor)
-        context?.fill(CGRect(x: 0, y: 0, width: self.bounds.width * UIScreen.main.scale , height: self.bounds.height * UIScreen.main.scale))
+        context?.clear(CGRect(x: 0, y: 0, width: self.bounds.width * UIScreen.main.scale , height: self.bounds.height * UIScreen.main.scale))
         self.layer.removeAllAnimations()
         self.layer.sublayers?.removeAll()
         self.image = UIImage(cgImage: context.makeImage()!)
@@ -201,6 +200,7 @@ class CanvasView: UIImageView{
                 currentLevel = nextLevel
                 currentDepth -= 1
             }
+            CATransaction.commit()
         }
         
     }

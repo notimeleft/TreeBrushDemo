@@ -8,11 +8,14 @@
 
 import UIKit
 import SnapKit
+import SpriteKit
 
 class ViewController: UIViewController {
 
     var scrollView: CustomScrollView!
     var canvasView: CanvasView!
+    var spriteKitView: SKView!
+    
     var resetButton: UIButton!
     var drawLevelButton: UIButton!
     
@@ -22,52 +25,118 @@ class ViewController: UIViewController {
     }
     
     func setupScrollView(){
+        
+        
         scrollView = CustomScrollView(frame: CGRect(x:0, y: 0, width: view.frame.width, height: view.frame.height))
         
         
         scrollView.delegate = self
-        scrollView.backgroundColor = UIColor.black
+        scrollView.backgroundColor = UIColor.clear
         scrollView.minimumZoomScale = 0.5
         scrollView.maximumZoomScale = 3.0
         scrollView.zoomScale = 1.0
-        //also another approach: pin image view to scrollview, make sure it has an intrinsic size
-        self.scrollView!.contentSize = CGSize(width:self.scrollView!.frame.size.width * 2,height: self.scrollView!.frame.size.height)
         scrollView.showsHorizontalScrollIndicator = true
         scrollView.indicatorStyle = .white
-        scrollView.backgroundColor = UIColor.gray
+        
+        
         
         setupCanvasView()
+        setupSKScene()
         setupResetButton()
         setupDrawLevelButton()
         
         scrollView.touchDelegate = canvasView
-        scrollView.addSubview(canvasView)
+        
+//        canvasView.addSubview(spriteKitView)
+//        canvasView.sendSubviewToBack(spriteKitView)
+        
+        //scrollView.addSubview(canvasView)
+        scrollView.addSubview(spriteKitView)
+        spriteKitView.addSubview(canvasView)
         
         view.addSubview(scrollView)
         view.addSubview(resetButton)
         view.addSubview(drawLevelButton)
         
+        //Swift will automatically add constraints to your views, unless you tell it that you are adding them yourself. If you don't set translatesAutoresizing to false, your constraints will conflict with automatically generated constraints.
+
+        canvasView.translatesAutoresizingMaskIntoConstraints = false
+        spriteKitView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        resetButton.translatesAutoresizingMaskIntoConstraints = false
+        drawLevelButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         //we must add constraints after we have added subviews to parent view, otherwise you're adding constraints in subviews that are in different view hierarchy from the parent view you reference.
-        resetButton.snp.makeConstraints{ make -> Void in
-            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
-        }
         
-        drawLevelButton.snp.makeConstraints{ make -> Void in
-            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin)
-        }
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            ])
         
-        scrollView.snp.makeConstraints { (make) -> Void in
-            make.edges.equalTo(view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-        }
+        //center the scrollview's content to be in the middle of the screen
         scrollView.contentOffset = CGPoint(x: view.frame.width / 2.0, y: 0)
+        
+        
+        NSLayoutConstraint.activate(
+        [canvasView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+        canvasView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+        canvasView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+        canvasView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+        canvasView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+        canvasView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 2.0)
+        ])
+        
+        
+        NSLayoutConstraint.activate(
+            [spriteKitView.leadingAnchor.constraint(equalTo: canvasView.leadingAnchor),
+             spriteKitView.trailingAnchor.constraint(equalTo: canvasView.trailingAnchor),
+             
+             spriteKitView.topAnchor.constraint(equalTo: canvasView.topAnchor),
+             spriteKitView.bottomAnchor.constraint(equalTo: canvasView.bottomAnchor),
+            
+
+        
+        resetButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+        resetButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+        
+        drawLevelButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+        drawLevelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        
+        
+        
+        
+    }
+    
+    func setupSKScene(){
+        spriteKitView = SKView(frame: CGRect(x: 0, y: 0, width: canvasView.frame.width, height: canvasView.frame.height))
+        
+        
+        
+//        if let spView = spriteKitView as SKView? {
+//            // Load the SKScene from 'GameScene.sks'
+        if let scene = SpriteKitScene(fileNamed: "SpriteKitScene") {
+                // Set the scale mode to scale to fit the window
+                //scene.scaleMode = .aspectFill
+                
+                // Present the scene
+            spriteKitView.presentScene(scene)
+            spriteKitView.ignoresSiblingOrder = true
+            spriteKitView.showsFPS = true
+            spriteKitView.showsNodeCount = true
+
+        }
+        spriteKitView.scene?.backgroundColor = UIColor.clear
+        //}
         
     }
     
     func setupCanvasView(){
         canvasView = CanvasView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 2, height: self.view.frame.height))
-        
+        canvasView.backgroundColor = UIColor.clear
     }
     
     
@@ -97,13 +166,18 @@ class ViewController: UIViewController {
         canvasView.drawLevel()
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
 }
 
 
 extension ViewController: UIScrollViewDelegate {
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return canvasView
+        return spriteKitView
+        //return canvasView
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
